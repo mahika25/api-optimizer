@@ -106,7 +106,7 @@ class APIOptimizerWrapper:
                 self.stats['cache_hits'] += 1
                 if self.verbose:
                     cost_saved = self._estimate_call_cost(current_model, prompt)
-                    print(f"💾 Cache hit! Saved ${cost_saved:.4f}")
+                    print(f" Cache hit! Saved ${cost_saved:.4f}")
                 return cached
 
         # 2. CHECK MODEL OPTIMIZATION
@@ -119,7 +119,7 @@ class APIOptimizerWrapper:
                 recommended_model = recommendation['recommended_model']
 
                 if self.verbose:
-                    print(f"\n💡 Model Optimization Available:")
+                    print(f"\n Model Optimization Available:")
                     print(f"   Current: {current_model}")
                     print(f"   Recommended: {recommended_model}")
                     print(f"   Reason: {recommendation['reason']}")
@@ -140,7 +140,7 @@ class APIOptimizerWrapper:
                     self.stats['total_cost_saved'] += (old_cost - new_cost)
                 else:
                     if self.verbose:
-                        print(f"     ℹ️ Set auto_apply=True to use automatically")
+                        print(f"     Set auto_apply=True to use automatically")
 
         # 3. MAKE ACTUAL API CALL
         if self.verbose:
@@ -180,7 +180,7 @@ class APIOptimizerWrapper:
         cached = self.cache.get(prompt, model, **kwargs)
         if cached:
             if self.verbose:
-                print("💾 Exact cache hit!")
+                print(" Exact cache hit!")
             return cached
         
         if not self.semantic_analyzer:
@@ -224,19 +224,19 @@ class APIOptimizerWrapper:
         if self.cache:
             self.cache.save(filepath)
             if self.verbose:
-                print(f"💾 Cache saved to {filepath}")
+                print(f" Cache saved to {filepath}")
     
     def load_cache(self, filepath: str = "api_cache.pkl"):
         if self.cache:
             self.cache.load(filepath)
             if self.verbose:
-                print(f"💾 Cache loaded from {filepath}")
+                print(f" Cache loaded from {filepath}")
     
     def clear_cache(self):
         if self.cache:
             self.cache.clear()
             if self.verbose:
-                print("🗑️ Cache cleared")
+                print(" Cache cleared")
     
     def get_cache_stats(self) -> Dict:
         if self.cache:
