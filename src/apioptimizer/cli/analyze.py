@@ -176,7 +176,7 @@ class StaticAnalyzer:
         from src.analyzer.model_rec import ModelRecommender
         recommender = ModelRecommender()
         
-        print("\n💡 Optimization Opportunities:")
+        print("\nOptimization Opportunities:")
         suggestions = 0
         
         for call in calls:
@@ -195,6 +195,6 @@ class StaticAnalyzer:
                     print(f"    Savings: ${rec['cost_savings_per_1m_tokens']:.2f}/1M tokens")
         
         if suggestions == 0:
-            print("  No immediate optimizations found")
+            print("No immediate optimizations found")
         
         print("\n" + "="*60)

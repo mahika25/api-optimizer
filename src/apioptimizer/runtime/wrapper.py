@@ -50,7 +50,7 @@ class APIOptimizerWrapper:
     def wrap(self):
         """Monkey-patch OpenAI to use our wrapper"""
         if self._is_wrapped:
-            print("⚠️ Already wrapped!")
+            print("Already wrapped!")
             return
         
         import openai
@@ -72,7 +72,7 @@ class APIOptimizerWrapper:
         self.original_openai_class = original_openai_class
         self._is_wrapped = True
         
-        print(" APIOptimizer wrapper activated!")
+        print("APIOptimizer wrapper activated!")
         print(f"   - Caching: {'ON' if self.enable_caching else 'OFF'}")
         print(f"   - Model optimization: {'ON' if self.enable_model_downgrade else 'OFF'}")
         print(f"   - Auto-apply: {'ON' if self.auto_apply else 'OFF'}")
@@ -85,7 +85,7 @@ class APIOptimizerWrapper:
         import openai
         openai.OpenAI = self.original_openai_class
         self._is_wrapped = False
-        print(" APIOptimizer wrapper deactivated")
+        print("APIOptimizer wrapper deactivated")
     
     def _optimized_call(self, original_create, **kwargs) -> Any:
         """Main optimization logic"""
@@ -128,7 +128,7 @@ class APIOptimizerWrapper:
 
                 if self.auto_apply and confidence >= 0.80:
                     if self.verbose:
-                        print(f"   ✓ Auto-applying optimization...")
+                        print(f"   Auto-applying optimization...")
                     kwargs['model'] = recommended_model
                     self.stats['model_downgrades'] += 1
 
@@ -144,7 +144,7 @@ class APIOptimizerWrapper:
 
         # 3. MAKE ACTUAL API CALL
         if self.verbose:
-            print(f"\n🔄 Calling {kwargs.get('model', current_model)} API...")
+            print(f"\n Calling {kwargs.get('model', current_model)} API...")
         start_time = time.time()
 
         response = original_create(**kwargs)
@@ -180,7 +180,7 @@ class APIOptimizerWrapper:
         cached = self.cache.get(prompt, model, **kwargs)
         if cached:
             if self.verbose:
-                print(" Exact cache hit!")
+                print("Exact cache hit!")
             return cached
         
         if not self.semantic_analyzer:
@@ -236,7 +236,7 @@ class APIOptimizerWrapper:
         if self.cache:
             self.cache.clear()
             if self.verbose:
-                print(" Cache cleared")
+                print("Cache cleared")
     
     def get_cache_stats(self) -> Dict:
         if self.cache:
